@@ -26,7 +26,7 @@ turbSilverSchema = StructType() \
 raw_data = spark.read.format("csv").options(**options).load("dbfs:/FileStore/jars/temp/")
 
 # Drop Duplicates and Drop the rows with null values in any column
-raw_data_na = raw_data.na.drop()
+raw_data_na = raw_data.dropDuplicates().na.drop()
 raw_data_na.createOrReplaceTempView("raw_data_na")
 
 # Format the RAW data
